@@ -1,0 +1,117 @@
+body{
+    width: 100%;
+    height: 100vh;
+    margin: 0px;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    font-family: Arial;
+    box-shadow: 0 0 20px rgba(0,0,0,0.9) inset;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 20px;
+    gap: 0px;
+    padding-top: 50px;
+    /* background:rgb(255,255,255); */
+}
+
+.actionBoard{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 800px;
+    min-height: 300px; 
+    border-radius: 0px 0px 40px 40px;
+    border: 5px solid black;
+    border-top: 1px; 
+    background-color: rgb(181, 133, 0);
+    padding: 20px;
+}
+
+.subOptions{
+    display: none;
+    flex-direction: column;
+    gap: 7px;
+    max-height: 280px;
+    padding-top: 3px;
+    overflow-y: scroll;
+}
+
+.buttonOption{
+    display: flex;
+    background-color: rgb(187, 146, 32);
+    border: 2px solid rgb(53, 39, 0);
+    border-radius: 5px 10px 10px 5px;
+    width: fit-content;
+    font-size: 20px;
+    padding: 7px 15px;
+}
+
+.buttonOption:hover{
+    font-size: 22px;
+    cursor: pointer;
+    background-color: rgb(223, 173, 37);
+    margin-top: -3px;
+}
+
+.inactiveButton{
+    background-color: rgb(116, 90, 19);
+}
+
+.inactiveButton:hover{
+    font-size: 20px;
+    background-color: rgb(116, 90, 19);
+    cursor: default;
+    margin-bottom: 0px;
+}
+
+.textInfo{
+    font-size: 24px;
+    font-weight: 500;
+    padding: 0px 10px;
+    margin-bottom: 0px;
+}
+.textTip{
+    font-size: 20px;
+    font-weight: 400;
+    padding: 0px 10px;
+    margin-top: 0px;
+}
+
+tr{
+    display: flex;
+    flex-direction: row;
+}
+td{
+    width: 400px;
+}
+.infoBoard{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 800px;
+    min-height: 300px; 
+    border-radius: 30px 30px 0px 0px; 
+    border: 5px solid black;
+    background-color: rgb(209, 153, 0);
+    padding: 20px;
+    border-bottom: 1px solid black; 
+}
+
+.infoText{
+    font-size: 18px;
+}
+
+.tableData{
+    display: flex;
+    flex-direction: column;
+}
+
+.subOptions{
+    width: 100%;
+}
+
+.headerRow{
+    font-size: 24px;
+}

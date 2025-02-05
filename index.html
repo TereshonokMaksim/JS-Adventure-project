@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="static/css/style.css">
+        <title>Da Game</title>
+    </head>
+    <body>
+        <!-- <p>If you cant see dialog box at the top, please reload the page</p> -->
+        <div class = "cheat-menu" style = "display:none;gap:10px;height:30px;position:fixed;margin:auto;top:10px">
+            <p style = "margin:0px;display:flex;align-items:center">DEV menu</p>
+            <button class = "heal">Heal</button>
+            <button class = "harm">Harm</button>
+            <button class = "attack">Attack</button>
+            <button class = "shoot">Shoot</button>
+            <button class = "info">HP info</button>
+            <button class = "revive">Revive</button>
+            <button class = "giveAmmo">Give ammo</button>
+        </div>
+        <div class = "infoBoard">
+            <h2 class = "infoTextMainHeader">Your State:</h2>
+            <table class = "infoTable" >
+                <tr class = "headerRow">
+                    <td class = "infoTextHeader">HP:</td>
+                    <td class = "infoTextHeader">Feeling:</td>
+                </tr>
+                <tr>
+                    <td class = "infoText" id = "yourHeadHP">Head - ?</td>
+                    <td class = "infoText" id = "yourConsciousness">Consciousness - ?%</td>
+                </tr>
+                <tr>
+                    <td class = "infoText" id = "yourBodyHP">Body - ?</td>
+                    <td class = "infoText" id = "yourPain">Pain - 0%</td>
+                </tr>
+                <tr>
+                    <td class = "infoText" id = "yourHandsHP">Hands - ?</td>
+                    <td class = "infoText" id = "yourWalking">Walking - ?%</td>
+                </tr>
+                <tr>
+                    <td class = "infoText" id = "yourLegsHP">Legs - ?</td>
+                    <td class = "infoText" id = "yourWorking">Working - ?%</td>
+                </tr>
+            </table>
+            <div class = "fightData tableData" style="display:none">
+                <h2>Battle data:</h2>
+                <table>
+                    <tr class = "headerRow">
+                        <td class = "infoText" id = "distanceToEnemy">Distance to the enemy - 0m</td>
+                    </tr>
+                    <tr>
+                        <td class = "infoText" id = "currentWeapon">Your weapon - none</td>
+                        <td class = "infoText" id = "enemyWeapon">Yours enemy weapon - none</td>
+                    </tr>
+                    <tr>
+                        <td class = "infoText" id = "currentArmor">Your armor - none</td>
+                        <td class = "infoText" id = "enemyArmor">Yours enemy armor - none</td>
+                    </tr>
+                    <tr>
+                        <td class = "infoText" id = "currentAmmo">Ammunition left - 0 bullets</td>
+                    </tr>
+                </table>
+            </div>
+            <div class = "outFightData tableData" style="display:flex">
+                <h2>Equipment info: </h2>
+                <table>
+                    <tr>
+                        <td class = "infoText" id = "currentWeaponOut">Your weapon - ?</td>
+                        <td class = "infoText" id = "currentAmmoOut"> </td>
+                    </tr>
+                    <tr>
+                        <td class = "infoText" id = "currentArmorOut"> </td>
+                    </tr>
+                    <tr>
+                        <td class = "infoText" id = "currentMoneyOut"> </td>
+                    </tr>
+                    <tr>
+                        <td class = "infoText" id = "currentThirstOut">Your thirst: 0%</td>
+                        <td class = "infoText" id = "currentHungerOut">Your hunger: 0%</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class = "actionBoard">
+            <p class = "textInfo">Here should be some text</p>
+            <p class = "textTip">Here should be some tips</p>
+            <div class = "options">
+                <div class = "fightOptionsList">
+                    <div class = "subOptions" id = "standartFightOptions" style = "display: none;">
+                        <button class = "buttonOption" id = "attackOption">
+                            Attack
+                        </button>
+                        <button class = "buttonOption" id = "moveOption">
+                            Move
+                        </button>
+                        <button class = "buttonOption" id = "itemOption">
+                            Use an item
+                        </button>
+                        <button class = "buttonOption" id = "additionalOption">
+                            Additional options
+                        </button>
+                    </div>
+                    <div class = "subOptionsList attackOptions">
+                        <div class = "subOptions" id = "fistAttackOptions">
+                            <button class = "buttonOption buttonDescription" id = "fistHit" value = "Quite weak, recommended to take weapon from your inventory">
+                                Hit with a fist 
+                            </button>
+                            <button class = "buttonOption exitMenu buttonDescription" value = "Go back to previous menu." id = "exitMeleeMenu">
+                                Back
+                            </button>
+                        </div>
+                        <div class = "subOptions" id = "meleeAttackOptions">
+                            <button class = "buttonOption meleeHit buttonDescription" id = "strongMeleeHit" value = "Usual hit">
+                                Strong hit
+                            </button>
+                            <button class = "buttonOption meleeHit buttonDescription" id = "massMeleeHit" value = "hurt several parts with one hit, each part gets smaller damage">
+                                Mass hit
+                            </button>
+                            <button class = "buttonOption exitMenu buttonDescription" value = "Go back to previous menu." id = "exitMeleeMenu">
+                                Back
+                            </button>
+                        </div>
+                        <div class = "subOptionsList" id = "rangedAttackOptions">
+                            <div class = "subOptions" id = "multiShotRangedOptions">
+                                <button class = "buttonOption rangedHit buttonDescription" id = "rapidFireHit" value = "Additional shots, decreased accuracy">
+                                    Rapid fire
+                                </button>
+                                <button class = "buttonOption rangedHit buttonDescription" id = "burstFireHit" value = "Usual burst, accuracy is not changed">
+                                    Burst fire
+                                </button>
+                                <button class = "buttonOption rangedHit buttonDescription" id = "preciseFireHit" value = "Only one shot, accuracy is increased and increased damage">
+                                    Precise fire
+                                </button>
+                                <button class = "buttonOption meleeHit buttonDescription" id = "meleeRangedHit" value = "Weak punch with your weapon.">
+                                    Hit with your weapon
+                                </button>
+                                <button class = "buttonOption exitMenu buttonDescription" value = "Go back to previous menu." id = "exitMultiRangedMenu">
+                                    Back
+                                </button>
+                            </div>
+                            <div class = "subOptions" id = "oneShotRangedOptions">
+                                <button class = "buttonOption rangedHit buttonDescription" id = "preciseFireHit" value = "One shot with great accuracy">
+                                    Precise fire 
+                                </button>
+                                <button class = "buttonOption rangedHit buttonDescription" id = "distractionFireHit" value = "One shot with increased damage">
+                                    Shot with distraction 
+                                </button>
+                                <button class = "buttonOption rangedHit buttonDescription" id = "doubleFireHit" value = "Two shots with strongly decreased accuracy">
+                                    Double shot
+                                </button>
+                                <button class = "buttonOption meleeHit buttonDescription" id = "meleeRangedHit" value = "Weak punch with your weapon.">
+                                    Hit with your weapon
+                                </button>
+                                <button class = "buttonOption exitMenu buttonDescription" value = "Go back to previous menu." id = "exitSingleRangedMenu">
+                                    Back
+                                </button>
+                            </div>
+                        </div>
+                        <div class = "subOptions" id = "bodyPartOptions">
+                            <!-- Хп головы, тела, рук и ног не взяты в span, как в кнопке побега из-за того, что некоторые части тела
+                                 могут быть переименованы -->
+                            <!-- Вот например: волк не имеет рук, а только ноги (лапы) -->
+                            <button class = "buttonOption bodyPart buttonDescription" id = "headBodyPart" value = "HP of specific part is shown in brackets like (current HP/Max HP)" name = "0">
+                                Head (0/0)
+                            </button>
+                            <button class = "buttonOption bodyPart buttonDescription" id = "bodyBodyPart" value = "HP of specific part is shown in brackets like (current HP/Max HP)" name = "1">
+                                Body (0/0)
+                            </button>
+                            <button class = "buttonOption bodyPart buttonDescription" id = "handsBodyPart" value = "HP of specific part is shown in brackets like (current HP/Max HP)" name = "2">
+                                Hands (0/0)
+                            </button>
+                            <button class = "buttonOption bodyPart buttonDescription" id = "legsBodyPart" value = "HP of specific part is shown in brackets like (current HP/Max HP)" name = "3">
+                                Legs (0/0)
+                            </button>
+                            <button class = "buttonOption exitMenu buttonDescription" value = "Go back to previous menu." id = "exitBodyPartMenu">
+                                Back
+                            </button>
+                        </div>
+                    </div>
+                    <div class = "subOptions" id = "moveOptions">
+                        <button class = "buttonOption buttonDescription" id = "protectYourself" value = "Use items around you to decrease damage on next turn">
+                            Protect
+                        </button>
+                        <button class = "buttonOption buttonDescription" id = "tryToParry" value = "Depends on your and yours enemy ability to walk">
+                            Parry (<span class = "dynamicallyUpdatedData" id = "parryChance">0</span>% of success)
+                        </button>
+                        <button class = "buttonOption buttonDescription" id = "runToTarget" value = "Makes you closer to the enemy by value below">
+                            Run to the enemy (<span class = "dynamicallyUpdatedData" id = "walkingDistance">30</span>m)
+                        </button>
+                        <button class = "buttonOption buttonDescription" id = "runFromTarget" value = "Makes you farther from the enemy by value below">
+                            Run from the enemy (<span class = "dynamicallyUpdatedData" id = "walkingDistance">30</span>m)
+                        </button>
+                        <button class = "buttonOption buttonDescription" id = "tryToFlee" value = "Depends on distance and ability to walk">
+                            Try to flee (<span class = "dynamicallyUpdatedData" id = "fleeChance">0</span>% of success.)
+                        </button>
+                        <button class = "buttonOption exitMenu buttonDescription" value = "Go back to previous menu." id = "exitMoveMenu">
+                            Back
+                        </button>
+                    </div>
+                    <div class = "subOptionsList" id = "inventoryOptions">
+                        <div class = "subOptions" id = "itemOptions">
+                            <button class = "buttonOption buttonDescription" id = "openWeapons" value = "Open list of your weapons.">
+                                Weapons
+                            </button>
+                            <button class = "buttonOption buttonDescription" id = "openConsumables" value = "Open list of your consumables.">
+                                Consumables
+                            </button>
+                            <button class = "buttonOption exitMenu buttonDescription" value = "Go back to previous menu." id = "exitInventoryMenu">
+                                Back
+                            </button>
+                        </div>
+                        <div class = "subOptions" id = "weaponsInventory">
+                            <!-- Button of weapons should generate here automatically, так ведь? -->
+                            <button class = "buttonOption exitMenu buttonDescription" value = "Go back to previous menu." id = "exitInventoryMenu">
+                                Back
+                            </button>
+                        </div>
+                        <div class = "subOptions" id = "consumablesInventory">
+                            <!-- Button of weapons should generate here automatically, так ведь? -->
+                            <button class = "buttonOption exitMenu buttonDescription" value = "Go back to previous menu." id = "exitInventoryMenu">
+                                Back
+                            </button>
+                        </div>
+                    </div>
+                    <div class = "subOptions" id = "additionalOptions">
+                        <button class = "buttonOption buttonDescription" id = "inspectEnemy" value = "Get info about their weapon, armor and overall stats">
+                            Inspect enemy
+                        </button>
+                        <button class = "buttonOption exitMenu buttonDescription" value = "Go back to previous menu." id = "exitAdditionalMenu">
+                            Back
+                        </button>
+                    </div>
+                    <div class = "subOptions" id = "playerWin">
+                        <button class = "buttonOption" id = "getBackWin">
+                            Get back on path
+                        </button>
+                    </div>
+                    <div class = "subOptions" id = "enemyWin">
+                        <button class = "buttonOption buttonDescription" id = "restart" value = "Everything from the start??? What?" onclick = "window.location.reload()">
+                            Restart the game
+                        </button>
+                        <button class = "buttonOption buttonDescription inactiveButton" id = "loadSave" value = "When did you make last save? Oh wait, they arent working😭" disabled>
+                            Load save
+                        </button>
+                    </div>
+                </div>
+                <div class = "walkingOpions">
+                    <div class = "subOptions" id = "awakening" style = "display: flex;">
+                        <!-- Text should be:
+                             You wake up. 
+                        -->
+                        <button class = "buttonOption buttonDescription" id = "lookAroundAwake" value = "ㅤ">
+                            Where am i?
+                        </button>
+                        <button class = "buttonOption buttonDescription" id = "checkYourselfAwake" value = "ㅤ">
+                            How am i?
+                        </button>
+                        <button class = "buttonOption buttonDescription" id = "checkInventoryAwake" value = "ㅤ">
+                            What do i have?
+                        </button>
+                    </div>
+                    <div class = "subOptions" id = "walking">
+                        <button class = "buttonOption buttonDescription" id = "goFurther" value = "Continue your adventure by walking forward">
+                            Continue your way
+                        </button>
+                        <button class = "buttonOption buttonDescription" id = "inspectLocation" value = "Inspect your current surroundings in hope to find some items... or enemies...">
+                            Inspect this location better
+                        </button>
+                        <button class = "buttonOption buttonDescription" id = "itemOptionWalking" value = "Open your bag to check what you currently have.">
+                            Open inventory
+                        </button>
+                        <button class = "buttonOption buttonDescription" id = "startCamping" value = "Time to make a small camp!">
+                            Camp
+                        </button>
+                    </div>
+                    <div class = "subOptionsList" id = "camping">
+                        <div class = "subOptions" id = "campingStandart">
+                            <button class = "buttonOption buttonDescription" id = "checkInventoryFull" value = "You can check your entire inventory! And change clothes too!">
+                                Check your inventory
+                            </button>
+                            <button class = "buttonOption buttonDescription" id = "inspectLocationCamping" value = "Inspect your current surroundings in hope to find some items with a torch, to be protected from enemies.">
+                                Inspect this location with a torch
+                            </button>
+                            <button class = "buttonOption buttonDescription" id = "cookCamping" value = "*Master chef sounds*">
+                                Cook
+                            </button>
+                            <button class = "buttonOption buttonDescription" id = "relaxCamping" value = "Food and water into your HP!">
+                                Relax
+                            </button>
+                            <button class = "buttonOption buttonDescription" id = "continueWayCamping" value = "My back still hurts :(">
+                                Continue your way
+                            </button>
+                        </div>
+                        <div class = "subOptionsList" id = "campingCooking">
+                            <div class = "subOptions" id = "campingCookingStandart">
+                                <button class = "buttonOption buttonDescription" id = "drinksCooking" value = "I would like to drink something rn.">
+                                    Drinks
+                                </button>
+                                <button class = "buttonOption buttonDescription" id = "foodsCooking" value = "Enough of eating raw food!">
+                                    Foods
+                                </button>
+                                <button class = "buttonOption buttonDescription exitMenu" id = "exitCookingStandart" value = "Get to the previous menu.">
+                                    Back
+                                </button>
+                            </div>
+                            <div class = "subOptions" id = "campingCookingDrinks">
+                                <!-- Other buttons with recipes are auto generated -->
+                                <button class = "buttonOption buttonDescription exitMenu" id = "exitCookingDrinks" value = "Get to the previous menu.">
+                                    Back
+                                </button>
+                            </div>
+                            <div class = "subOptions" id = "campingCookingFoods">
+                                <!-- Other buttons with recipes are auto generated -->
+                                <button class = "buttonOption buttonDescription exitMenu" id = "exitCookingFoods" value = "Get to the previous menu.">
+                                    Back
+                                </button>
+                            </div>
+                        </div>
+                        <div class = "subOptions" id = "inventoryCamping">
+                            <!-- Other buttons with items are auto generated -->
+                            <button class = "buttonOption buttonDescription exitMenu" id = "exitInventoryCamping" value = "Get to the previous menu.">
+                                Back
+                            </button>
+                        </div>
+                    </div>
+                    <div class = "subOptionsList">
+                        <div class = "subOptions" id = "checkInventoryWalking">
+                            <button class = "buttonOption buttonDescription" id = "armorInventoryWalking" value = "Check your clothes. Or armors.">
+                                Armor
+                            </button>
+                            <button class = "buttonOption buttonDescription" id = "weaponsInventoryWalking" value = "Check your weapons">
+                                Weapons
+                            </button>
+                            <button class = "buttonOption buttonDesctiption" id = "foodsInventoryWalking" value = "Check your foods, and possibly eat.">
+                                Food
+                            </button>
+                            <button class = "buttonOption buttonDescription" id = "healItemsInventoryWalking" value = "Check your heal items, such as medkits.">
+                                Heal items
+                            </button>
+                            <button class = "buttonOption buttonDescription exitMenu" id = "exitInventoryWalking" value = "Get to the previous menu.">
+                                Back
+                            </button>
+                        </div>
+                        <div class = "subOptions" id = "checkInventoryDetailed">
+                            <!-- Other buttons with items are auto generated -->
+                            <button class = "buttonOption buttonDescription exitMenu" id = "exitInventoryCamping" value = "Get to the previous menu.">
+                                Back
+                            </button>
+                        </div>
+                        <!-- Goto line 159 for bodyParts -->
+                    </div>
+                    <div class = "subOptions" id = "encounterMenu">
+                        <!-- Every parameter about encounter should be setted manually or half manually in js -->
+                        <button class = "buttonOption buttonDescription" id = "startBattle" value = "Let the battle begin! Your turn is first!">
+                            Fight
+                        </button>
+                        <button class = "buttonOption buttonDescription" id = "tryToFleeBattle" value = "Try to flee, but if you cant, your enemy gets the first turn!">
+                            Try to flee
+                        </button>
+                    </div>
+                    <div class = "subOptions" id = "foundEnemyMenu">
+                        <button class = "buttonOption buttonDescription" id = "backOffBattle" value = "We arent killers, we are just chill pacifists!">
+                            Back off    
+                        </button>
+                        <button class = "buttonOption buttonDescription" id = "startBattle" value = "Look at him! He has some things to sell!">
+                            Fight
+                        </button>
+                    </div>
+                </div>
+                <div>
+
+                </div>
+            </div>
+        </div>
+        <script src = "js/health.js"></script>
+        <script src = "js/items/baseItems.js"></script>
+        <script src = "js/items/weapons.js"></script>
+        <script src = "js/items/ammunitions.js"></script>
+        <script src = "js/items/consumables.js"></script>
+        <script src = "js/items/armor.js"></script>
+        <script src = "js/map.js"></script>
+        <script src = "js/creatures.js"></script>
+        <script src = "js/playerData.js"></script>
+        <script src = "js/storyData.js"></script>
+        <script src = "js/effects.js"></script>
+        <script src = "js/changePlayerData.js"></script>
+        <script src = "js/enemies/enemyArmor.js"></script>
+        <script src = "js/enemies/enemyBots.js"></script>
+        <script src = "js/enemies/enemyWeapons.js"></script>
+        <script src = "js/enemies/enemyCreatures.js"></script>
+        <script src = "js/interface/data.js"></script>
+        <script src = "js/interface/fightMenu.js"></script>
+        <script src = "js/interface/usualWalkingMenu.js"></script>
+        <script src = "js/dev_menu.js"></script>
+    </body>
+</html>
